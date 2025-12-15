@@ -31,11 +31,12 @@ class Settings(BaseSettings):
     the project root with lines like `ADMIN_USER=...`.
     """
     ENV: str = "development"
-    ADMIN_USER: str
-    ADMIN_PASSWORD: str
-    DATABASE: str
+    ADMIN_USER: str ="admin@email.com"
+    ADMIN_PASSWORD: str = "securepassword123"
+    DATABASE: str = "sqlite:///pricetracker.sqlite"
     LOG_LEVEL: str = "INFO"
     USE_JSON_LOGS: bool = True
+    JWT_SECRET: str = "ChangeMeInProduction"
 
     model_config = SettingsConfigDict(
         env_file=".env",
