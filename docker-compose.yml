@@ -1,0 +1,15 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPNSP=private internet access
+      - REGION=United States
+    ports:
+      - 8080:8080/tcp # HTTP(S) proxy
+      - 3000:3000/tcp # Admin interface
+    volumes:
+      - ./gluetun/config:/gluetun
+    restart: unless-stopped

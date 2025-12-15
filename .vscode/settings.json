@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:pricetracker-v2}/backend/pricetracker.sqlite",
+            "name": "pricetracker-db"
+        }
+    ]
+}
