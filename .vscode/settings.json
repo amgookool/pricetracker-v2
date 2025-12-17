@@ -1,11 +1,21 @@
 {
-    "sqltools.useNodeRuntime": true,
-    "sqltools.connections": [
-        {
-            "previewLimit": 50,
-            "driver": "SQLite",
-            "database": "${workspaceFolder:pricetracker-v2}/backend/pricetracker.sqlite",
-            "name": "pricetracker-db"
-        }
-    ]
+	"sqltools.useNodeRuntime": true,
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"driver": "SQLite",
+			"database": "${workspaceFolder:pricetracker-v2}/backend/pricetracker.sqlite",
+			"name": "pricetracker-db"
+		}
+	],
+	// Tanstack Router generated route tree file - make read-only
+	"files.readonlyInclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"files.watcherExclude": {
+		"**/routeTree.gen.ts": true
+	},
+	"search.exclude": {
+		"**/routeTree.gen.ts": true
+	}
 }
