@@ -1,10 +1,11 @@
 {
 	"sqltools.useNodeRuntime": true,
+	"sqltools.sessionFilesFolder": "./.vscode/sqltools-sessions",
 	"sqltools.connections": [
 		{
 			"previewLimit": 50,
 			"driver": "SQLite",
-			"database": "${workspaceFolder:pricetracker-v2}/backend/pricetracker.sqlite",
+			"database": "${workspaceFolder:pricetracker-v2}/pricetracker.sqlite",
 			"name": "pricetracker-db"
 		}
 	],
