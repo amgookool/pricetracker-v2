@@ -3,3 +3,7 @@
 
 # Environment files
 .env
+
+# MailPit data
+mailpit/*
+!mailpit/generate-self-signed-cert.sh
