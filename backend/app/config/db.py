@@ -5,6 +5,7 @@ working with SQLModel and SQLite, including:
 - Engine creation and lifecycle management
 - Session context managers (both sync and dependency injection patterns)
 - Table creation and schema initialization
+- Database connection disposal for graceful shutdown
 - Generic CRUD operations for any SQLModel model
 
 Usage:
@@ -20,6 +21,11 @@ Usage:
     # Or use the context manager directly
     with get_db_session() as session:
         item = get_by_id(session, Item, item_id=1)
+    
+    # Close database connection on app shutdown
+    @app.on_event("shutdown")
+    def on_shutdown():
+        close_db_connection()
 """
 
 from contextlib import contextmanager
@@ -55,8 +61,8 @@ def get_engine() -> Engine:
         # Create engine with SQLite-specific options
         # echo=True would log all SQL statements (useful for debugging)
         _engine = create_engine(
-            envConfig.DATABASE,
-            echo=True,  # Set to True for SQL query logging
+            envConfig.DATABASE_URL,
+            echo=envConfig.ECHO_SQL,  # Set to True for SQL query logging
             connect_args={"check_same_thread": False}  # Needed for SQLite
         )
     return _engine
@@ -77,6 +83,28 @@ def create_db_and_tables() -> None:
     """
     engine = get_engine()
     SQLModel.metadata.create_all(engine)
+
+
+def close_db_connection() -> None:
+    """Dispose of the database engine and close all connections.
+    
+    This function should be called during application shutdown to ensure
+    all database connections are properly closed and resources are released.
+    It disposes of the global engine instance and resets it to None.
+    
+    This is safe to call multiple times - if the engine is already None,
+    the function does nothing.
+    
+    Example:
+        # In main.py or app shutdown
+        @app.on_event("shutdown")
+        def on_shutdown():
+            close_db_connection()
+    """
+    global _engine
+    if _engine is not None:
+        _engine.dispose()
+        _engine = None
 
 
 @contextmanager

@@ -1,9 +1,15 @@
-# SQL Playground files
-*.sql
-
 # Environment files
 .env
 
 # MailPit data
 mailpit/*
 !mailpit/generate-self-signed-cert.sh
+
+# SQLite database file
+pricetracker.sqlite
+
+# Config files with sensitive data
+us-*.conf
+
+# Gluetun VPN config and data
+gluetun/*

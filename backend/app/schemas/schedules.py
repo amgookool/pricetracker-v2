@@ -7,7 +7,7 @@ from sqlmodel import Field, SQLModel
 
 
 class SchedulesTable(SQLModel, table=True):
-    __tablename__="schedules_table"
+    __tablename__="schedules"
     
     # Fields
     id: UUID = Field(

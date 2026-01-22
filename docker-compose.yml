@@ -20,12 +20,25 @@ services:
     container_name: gluetun
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     environment:
-      - VPNSP=private internet access
-      - REGION=United States
+      - TZ=America/La_Paz
+      - HTTPPROXY=on
+      - HTTPPROXY_USER=${GLUETUN_USER} # Optional: set HTTP proxy authentication
+      - HTTPPROXY_PASSWORD=${GLUETUN_PASSWORD} # Optional: set HTTP proxy authentication
+      - HTTPPROXY_STEALTH=on # Optional: enables stealth mode
+      - SHADOWSOCKS=on
+      # - SHADOWSOCKS_PASSWORD=${GLUETUN_PASSWORD} # Set Shadowsocks password
+      - VPN_SERVICE_PROVIDER=surfshark
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      - SERVER_COUNTRIES="United States"
     ports:
-      - 8080:8080/tcp # HTTP(S) proxy
-      - 3000:3000/tcp # Admin interface
+      - 8888:8888/tcp # HTTP proxy
+      - 8388:8388/tcp # Shadowsocks
+      - 8388:8388/udp # Shadowsocks
     volumes:
-      - ./gluetun/config:/gluetun
+      - ./gluetun:/gluetun
     restart: unless-stopped

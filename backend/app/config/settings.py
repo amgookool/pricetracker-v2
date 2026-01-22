@@ -30,13 +30,33 @@ class Settings(BaseSettings):
     values from a file during local development, create a `.env` file in
     the project root with lines like `ADMIN_USER=...`.
     """
+    # General settings
     ENV: str = "development"
+    APP_HOST: str = "localhost:8000"
+    # Logging settings
+    LOG_LEVEL: str = "INFO"
+    USE_JSON_LOGS: bool = False
+    # Database and admin settings
     ADMIN_USER: str ="admin@email.com"
     ADMIN_PASSWORD: str = "securepassword123"
-    DATABASE: str = "sqlite:///pricetracker.sqlite"
-    LOG_LEVEL: str = "INFO"
-    USE_JSON_LOGS: bool = True
+    ECHO_SQL: bool = False
+    DATABASE_URL: str = "sqlite:///pricetracker.sqlite"
+    # Security settings
     JWT_SECRET: str = "ChangeMeInProduction"
+    # Mailer settings
+    SMTP_SERVER: str = "smtp.example.com"
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str = "user@example.com"
+    SMTP_PASSWORD: str = "securepassword"
+    SMTP_STARTTLS: bool = False
+    SMTP_SSL_TLS: bool = True
+    SMTP_USE_CREDENTIALS: bool = True
+    SMTP_VALIDATE_CERTS: bool = True
+    EMAIL_FROM: str = "no-reply@example.com"
+    # Proxy settings
+    GLUETUN_USER: str = "gluetun"
+    GLUETUN_PASSWORD: str = "gluetun"
+    
 
     model_config = SettingsConfigDict(
         env_file=".env",
